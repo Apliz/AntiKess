@@ -41,7 +41,3 @@ class Transfer {
     // returns deltaV (int)
   }
 }
-
-export class Transfer {
-  // Need to figure out how to export
-}

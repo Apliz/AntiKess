@@ -1,21 +1,29 @@
-var celesTrack = "https://celestrak.org/NORAD/elements/gp.php?";
 
-$(function () {
-  $.ajax({
-    url: celesTrack,
-    data: {
-      GROUP: "cosmos-2251-debris",
-      FORMAT: "JSON"
-    },
-    success: function (data, status, jqXHR) {
-      console.log(status);
-      console.log("#################");
-      //TLE string
-      console.log(data);
-      console.log("#################");
-      //Object
-      console.log(jqXHR);
-      $("#canvas").append(JSON.stringify(data));
+import { Transfer } from "./js/transferModule";
+
+const hohmannRatio = 11.94
+const biellipticRatio = 15.58
+
+// Each case will call the 'Transfer class'
+switch (radiiRatio) {
+
+  case (radiiRatio < hohmannRatio):
+    {
+      // Hohmann Transfer call goes HERE
     }
-  });
-});
+
+  case (radiiRatio < biellipticRatio && radiiRatio >= hohmannRatio):
+    {
+      // Bi-Parabolic Transfer call goes HERE 
+    }
+
+  case (radiiRatio >= biellipticRatio):
+    {
+      // Bi-Elliptic Transfer call goes HERE
+    }
+
+  default:
+    {
+      throw new Error(`No orbital transfer was selected with radiiRati: ${radiiRatio}`)
+    }
+}
