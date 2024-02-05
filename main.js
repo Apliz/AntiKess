@@ -11,18 +11,21 @@ switch (radiiRatio) {
   case (radiiRatio < hohmannRatio):
     {
       // Hohmann Transfer call goes HERE
-      console.log("should be here!");
+      console.log("Hohmann Transfer!");
       break;
     }
 
   case (radiiRatio < biellipticRatio && radiiRatio >= hohmannRatio):
     {
-      // Bi-Parabolic Transfer call goes HERE 
+      // Bi-Parabolic Transfer call goes HERE
+      console.log("Bi-Parabolic Transfer");
+ 
     }
 
   case (radiiRatio >= biellipticRatio):
     {
       // Bi-Elliptic Transfer call goes HERE
+      console.log("Bielliptic Transfer");
     }
 
   default:
