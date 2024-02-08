@@ -5,7 +5,7 @@
 ### Tech Stack (So far)
 
 1. Using MatplotLib and TLE data from Celestrack.  
-2. **I'm going to use the Django Python framework for the this project. By updating this I am commiting to the pain of MVC and integration hell. It's gonna be one hell of a ride through the souk.**
+2. **I did the integration in flask instead**
 Order all objects by height and use distribution to find the highest concentration of bodies.  
 
 ### Outstanding Questions
@@ -21,3 +21,11 @@ Ensuring that no local minimums are declared as global minimum (when optimising 
 #### Asterisks
 
 1. If not the closest point (as per open question No1, then another seperation)
+
+### Next steps
+
+- The most basic integration in Flask is complete
+- Next steps is to complete the ajax query in celestrack.js
+- Then create the javascript class in python
+- Then port the transfer logic across
+- Represent the data with matplotlib
