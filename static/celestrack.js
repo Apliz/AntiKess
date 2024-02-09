@@ -1,10 +1,9 @@
-//The html ID is "test" and this is incorrect. Needs changing to something better
 //The HTML this links to is /templates.html
 //The JSON is currently returned into the console.
 var celesTrack = "https://celestrak.org/NORAD/elements/gp.php?";
+
 $(function () {
-  $("#test").on("click", function () {
-    console.log("test")
+  $("#celestrackButton").on("click", function () {
     $.ajax({
       url: celesTrack,
       data: {
