@@ -1,15 +1,13 @@
 from flask import Flask, jsonify, render_template, request
-
+from flask import current_app as app
 
 app = Flask(__name__)
 
 @app.route("/")
-def homepage(name=None):
-  return render_template('index.html', name=name)
-  # return "<p>test</p>"
-# @app.route("/calculator")
-# def calculator():
-#     return  
-@app.route("/test")
-def testpage():
-  return "<p>test</p>"
+def home():
+  return render_template(
+    'index.html', 
+    title="Aerospace Project",
+    description="Project to calculate a series of transfers for space trash deorbit"
+  )
+ 
