@@ -24,8 +24,8 @@ Ensuring that no local minimums are declared as global minimum (when optimising 
 
 ### Next steps
 
-- The most basic integration in Flask is complete
-- Next steps is to complete the ajax query in celestrack.js
-- Then create the javascript class in python
-- Then port the transfer logic across
-- Represent the data with matplotlib
+-[x] The most basic integration in Flask is complete 
+-[x] Next steps is to complete the ajax query in celestrack.js
+-[] Then create the javascript class in python
+-[] Then port the transfer logic across
+-[] Represent the data with matplotlib
