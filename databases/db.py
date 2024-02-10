@@ -2,7 +2,7 @@ import sqlite3
 import click
 from flask import current_app, g
 
-DATABASE = "./databases/app.db"
+DATABASE = "./databases/orbitalBodies.db"
 
 def get_db():
     if 'db' not in g:

@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS bodies;
+DROP TABLE IF EXISTS orbitalBodies;
 
-CREATE TABLE bodies (
+CREATE TABLE orbitalBodies (
   id INTEGER PRIMARY KEY,
   objectname TEXT UNIQUE NOT NULL,
   objectid TEXT UNIQUE NOT NULL,
