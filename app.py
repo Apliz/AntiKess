@@ -5,8 +5,10 @@ from flask import current_app as app
 app = Flask(__name__)
 db.init_app(app)
 
-@app.route("/")
+@app.route("/", methods=["POST","GET"])
 def home():
+  data = request.get_data()
+  print(data)
   return render_template(
     'index.html', 
     title="Aerospace Project",
