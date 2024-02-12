@@ -1,36 +1,59 @@
+
 //The HTML this links to is /templates.html
-//The JSON is currently returned into the console.
 var celesTrack = "https://celestrak.org/NORAD/elements/gp.php?";
-// console.log("the file is called.")
+
 $(function () {
-  // console.log("document.ready")
+  /* 
+  The AJAX GET request to celestrack.org should remain commented out during development to prevent
+  overloading their servers during development.
+
+  The commented out ajax is the GET call
+
+  The currently used ajax POST was removed from the SUCCESS callback function() of the celestrack GET
+  It currently uses a STUB JSON that mimics an orbital body JSON object.
+
+  When moving from development into production, the POST should be moved back into the ajax GET callback function.
+
+  Custom succes and error messages should be created at some point to deal with the most common basic errors.
+  Currently the successMessage parameter in the success callback function returns HTML...
+  */
   $("#celestrackButton").on("click", function () {
-    // console.log("the click callback..")
     $.ajax({
-      url: celesTrack,
-      data: {
-        GROUP: "stations",
-        FORMAT: "JSON"
-      },
-      success: function (response, status) {
-        $.ajax({
-          type: "POST",
-          url: "/",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify(response),
-          success: function (successMessage) {
-            console.log("ajax orbitalBodies POST to flask function completed!")
-            $(p).append(successMessage)
-          },
-          error: function (err) {
-            console.log(err)
-          }
-        })
+      type: "POST",
+      url: "/",
+      contentType: "application/json",
+      data: JSON.stringify({ "OBJECT_NAME": "ISS (ZARYA)" }),
+      success: function (successMessage) {
+        console.log(`ajax orbitalBodies POST to flask function completed with message: \n ${successMessage}`)
       },
       error: function (err) {
-        console.log(err);
+        console.log(err)
       }
-    });
+    })
+    // $.ajax({
+    //   url: celesTrack,
+    //   data: {
+    //     GROUP: "stations",
+    //     FORMAT: "JSON"
+    //   },
+    //   success: function (response, status) {
+    //     console.log(typeof JSON.stringify(response))
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "/",
+    //       contentType: "application/json",
+    //       data: JSON.parse(response),
+    //       success: function (successMessage) {
+    //         // console.log(`ajax orbitalBodies POST to flask function completed with message: \n ${successMessage}`)
+    //       },
+    //       error: function (err) {
+    //         console.log(err)
+    //       }
+    //     })
+    //   },
+    //   error: function (err) {
+    //     console.log(err);
+    //   }
+    // });
   })
 });
