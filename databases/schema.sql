@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS orbitalBodies;
 
 CREATE TABLE orbitalBodies (
   id INTEGER PRIMARY KEY NOT NULL,
-  objectname TEXT UNIQUE NOT NULL,
+  objectname TEXT NOT NULL,
   objectid TEXT UNIQUE NOT NULL,
   epoch TEXT NOT NULL,
   mean_motion REAL NOT NULL,

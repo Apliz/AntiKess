@@ -31,81 +31,19 @@ def init_db():
 
 def insert_Data(data):
     db = get_db()
-    decoded_json = utils.json_decode(data)
-
+    decoded_json = utils.json_decode(data)  
+    # Delete orbitalBodiesDB.old
+    db.execute("""DELETE FROM orbitalBodies;""")
+    
     count = 1
     for characteristic in decoded_json:
-    # db.execute() inserts the JSON into the orbitalBodies.db
-    ################################################## 
-        db.execute("""
-            INSERT INTO orbitalBodies(
-                id,
-                objectname,
-                objectid,
-                epoch,
-                mean_motion,
-                eccentricity,
-                inclination,
-                ra_ascending_node,
-                mean_anomaly,
-                ephemeris_type,
-                classification_type,
-                norad_cat_id,
-                element_set_no,
-                revolution_no,
-                bstar,
-                mean_motion_dot,
-                mean_motion_ddot  
-            ) VALUES (
-                (SELECT MAX(id) + 1 FROM orbitalBodies),
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?
-            )""",(
-                ################################################# 
-                    # characteristic[n] is a stub value for the properties of a single body, accessed as the JSON is iterated through.
-                #################################################         
-                
-                characteristic["OBJECT_NAME"],
-                characteristic["OBJECT_ID"],
-                characteristic["EPOCH"],
-                float(characteristic["MEAN_MOTION"]),
-                float(characteristic["ECCENTRICITY"]),
-                float(characteristic["INCLINATION"]),
-                float(characteristic["RA_OF_ASC_NODE"]),
-                # float(characteristic["ARG_OF_PERICENTER"]),
-                float(characteristic["MEAN_ANOMALY"]),
-                int(characteristic["EPHEMERIS_TYPE"]),
-                characteristic["CLASSIFICATION_TYPE"],
-                int(characteristic["NORAD_CAT_ID"]),
-                int(characteristic["ELEMENT_SET_NO"]),
-                int(characteristic["REV_AT_EPOCH"]),
-                float(characteristic["BSTAR"]),
-                int(characteristic["MEAN_MOTION_DOT"]),
-                int(characteristic["MEAN_MOTION_DDOT"]),
-            ))
+        utils.orbitalBodiesSQLInsert(characteristic, count, db)
         count += 1
 
-    # commit changes to database  
+    # commit changes to database and close 
     db.commit()
-
-    # Close the connection the database as per best practices
     close_db()
     
-    # Might want to return a success/ error message here
     return None
 
 
