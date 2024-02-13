@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS orbitalBodies;
 
 CREATE TABLE orbitalBodies (
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY NOT NULL,
   objectname TEXT UNIQUE NOT NULL,
   objectid TEXT UNIQUE NOT NULL,
   epoch TEXT NOT NULL,
@@ -9,6 +9,7 @@ CREATE TABLE orbitalBodies (
   eccentricity REAL NOT NULL,
   inclination REAL NOT NULL,
   ra_ascending_node REAL NOT NULL,
+  arg_pericenter REAL NOT NULL,
   mean_anomaly REAL NOT NULL,
   ephemeris_type INTEGER NOT NULL,
   classification_type TEXT NOT NULL,

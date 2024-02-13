@@ -17,7 +17,6 @@ def home():
     # saves the data to a variable 'data'
     data = request.data
     #inserts the data into the db
-    # insert_Data currently also cleans up the JSON data. This should be delegated to a utility function inside of /static/helpers
     db.insert_Data(data)
 
   return render_template(
@@ -25,4 +24,3 @@ def home():
     title="Aerospace Project",
     description="Project to calculate a series of transfers for space trash deorbit"
   )
- ``

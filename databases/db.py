@@ -1,7 +1,6 @@
 import sqlite3, click, json
-from flask import current_app, g
-import json
-
+from flask import current_app, g, json
+from static import utils
 DATABASE = "./databases/orbitalBodies.db"
 
 def get_db():
@@ -32,93 +31,82 @@ def init_db():
 
 def insert_Data(data):
     db = get_db()
-    my_json = data.decode('utf8').replace('"','"')
+    decoded_json = utils.json_decode(data)
 
-    data = json.loads(my_json)
-    print(data["OBJECT_NAME"])
-
-    # Code to change the JSON back to str
-    # s = json.dumps(data, indent=4, sort_keys=True)
-    # print(type(s))   
-     
-
-     ################################################## 
-    # Eventually the below db.execute() call will insert the JSON into the database using the provided SQL
-    # by iterating through the bodies and adding the values in dynamically
-
-    # This pseudocode still needs a commit to database function to be added.
-    
-    # The schema will also be optimised eventually. it currently contains ALL of the data included by celestrack. Once the data needed
-    # for the transfer calculations are identified, the redundant properties should be removed from the schema so they are
-    # not stored in the database
+    count = 1
+    for characteristic in decoded_json:
+    # db.execute() inserts the JSON into the orbitalBodies.db
     ################################################## 
+        db.execute("""
+            INSERT INTO orbitalBodies(
+                id,
+                objectname,
+                objectid,
+                epoch,
+                mean_motion,
+                eccentricity,
+                inclination,
+                ra_ascending_node,
+                mean_anomaly,
+                ephemeris_type,
+                classification_type,
+                norad_cat_id,
+                element_set_no,
+                revolution_no,
+                bstar,
+                mean_motion_dot,
+                mean_motion_ddot  
+            ) VALUES (
+                (SELECT MAX(id) + 1 FROM orbitalBodies),
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+            )""",(
+                ################################################# 
+                    # characteristic[n] is a stub value for the properties of a single body, accessed as the JSON is iterated through.
+                #################################################         
+                
+                characteristic["OBJECT_NAME"],
+                characteristic["OBJECT_ID"],
+                characteristic["EPOCH"],
+                float(characteristic["MEAN_MOTION"]),
+                float(characteristic["ECCENTRICITY"]),
+                float(characteristic["INCLINATION"]),
+                float(characteristic["RA_OF_ASC_NODE"]),
+                # float(characteristic["ARG_OF_PERICENTER"]),
+                float(characteristic["MEAN_ANOMALY"]),
+                int(characteristic["EPHEMERIS_TYPE"]),
+                characteristic["CLASSIFICATION_TYPE"],
+                int(characteristic["NORAD_CAT_ID"]),
+                int(characteristic["ELEMENT_SET_NO"]),
+                int(characteristic["REV_AT_EPOCH"]),
+                float(characteristic["BSTAR"]),
+                int(characteristic["MEAN_MOTION_DOT"]),
+                int(characteristic["MEAN_MOTION_DDOT"]),
+            ))
+        count += 1
 
-    # db.execute('''
-    #     INSERT INTO orbitalBodies(
-    #         id,
-    #         objectname,
-    #         objectid,
-    #         epoch,
-    #         mean_motion,
-    #         eccentricity,
-    #         inclination,
-    #         ra_ascending_node,
-    #         mean_anomaly,
-    #         ephemeris_type,
-    #         classification_type,
-    #         norad_cat_id,
-    #         element_set_no,
-    #         revolution_no,
-    #         bstar,
-    #         mean_motion_dot,
-    #         mean_motion_ddot,   
-    #     ) VALUES (
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #         ?,
-    #     )'''
-    #     (
-            ################################################## 
-            #  characteristic[n] is a stub value for the properties of a single body, accessed as the JSON is iterated through.
-            ##################################################         
-    #         characteristic[0],
-    #         characteristic[1],
-    #         characteristic[2],
-    #         characteristic[3],
-    #         characteristic[4],
-    #         characteristic[5],
-    #         characteristic[6],
-    #         characteristic[7],
-    #         characteristic[8],
-    #         characteristic[9],
-    #         characteristic[10],
-    #         characteristic[11],
-    #         characteristic[12],
-    #         characteristic[13],
-    #         characteristic[14],
-    #         characteristic[15],
-    #         characteristic[16]   
-    #     ))
-     ################################################## 
-    
+    # commit changes to database  
+    db.commit()
+
     # Close the connection the database as per best practices
     close_db()
-    #Not sure if it's necessary for the function to return anything. RESEARCH NEEDED
-    return 0
+    
+    # Might want to return a success/ error message here
+    return None
 
 
 @click.command('init-db')
