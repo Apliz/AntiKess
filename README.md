@@ -1,5 +1,4 @@
-# Ideas concerning interesting use of TLE data for project
-  
-## Estimating low &Delta V missions for space debris recovery
-
-Create proper task list, need to remove pylint shit.
+I need to be able to calculate the orbits of many bodies. For this, I will use
+  1. An Orbit class
+I need to be able to calculate an optimal transfer between two Orbits. For this I will use
+  1. A Transfer class
