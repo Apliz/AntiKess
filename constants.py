@@ -1,9 +1,9 @@
-# gravitational acceleration (Earth)
+# gravitational acceleration (Earth) (ms^-2)
 G_EARTH = 9.81
-# Radius of the Earth
-R_EARTH = 6378000
+# Radius of the Earth (km)
+R_EARTH = 6378
 
-GM_EARTH = 3.986004418*10**14
+GM_EARTH = 398600.435507
 
 GR2 = G_EARTH * pow(R_EARTH,2)
 
