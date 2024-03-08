@@ -1,13 +1,13 @@
-# gravitational acceleration (Earth) (ms^-2)
+"""Application Constants"""
+
+# Gravitational Accelation               (m s-2)
 G_EARTH = 9.81
-# Radius of the Earth (km)
+# Radius of the Earth                    (km)
 R_EARTH = 6378
-
-GM_EARTH = 398600.435507
-
-GR2 = G_EARTH * pow(R_EARTH,2)
+# Standard Gravitational Parameter       (km3 s-2)
+GM = 398600.435507
 
 RATIO_HOHMANN = 11.94
 RATIO_BIELLIPTIC = 15.58
-# radii ratio is a stub value
+# stub
 RATIO_RADII = 1
