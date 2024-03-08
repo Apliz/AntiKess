@@ -12,10 +12,10 @@ class Orbit():
 
     def calculate_semi_major_axis(self) -> int:
         """Calculates the semi-major axis (Km)"""
-
         radians_per_second = self.mean_motion * ((2*pi)/86400)
         semi_major_axis = constants.GM_EARTH**frac(1,3) / radians_per_second**frac(2,3)
-        print(semi_major_axis)
+        print(f'mean motion: {self.mean_motion}')
+        print(f'semi_major_axis: {semi_major_axis}')
         return floor(semi_major_axis)
 
     def radius_perigee(self) -> int:
@@ -27,13 +27,27 @@ class Orbit():
         """Returns orbit apogee (Km)"""
         ap = self.semi_major_axis*(self.eccentricity + 1)
         return ap
+    
+    def radius_at(self, position) -> int:
+        """Returns the orbital radius at a given position"""
+        match position:
+            case "apogee":
+                return self.semi_major_axis*(self.eccentricity + 1)
+            case "perigee":
+                return self.semi_major_axis*(1 - self.eccentricity)
+        raise NotImplementedError(position)
 
-    def velocity_at_position(self, position:int) ->int:
+    def epsilon(self):
+        e = -abs(constants.GM_EARTH) / (2 * self.semi_major_axis)
+        return e
+
+    def velocity_at_position(self, ap_or_pe:str) ->int:
         """returns velocity of satellite at a given position `(Kms^-1)` \n
                 args: \n
                     `position` -> The orbital radius 'height' from which instantaneous velocity will be calculated
         """
-        v = sqrt(constants.GM_EARTH*(frac(2/position) - frac(1/self.semi_major_axis)))
+        v = sqrt(2*((constants.GM_EARTH / self.radius_at(ap_or_pe)) + self.epsilon()))
+        # v = sqrt(constants.GM_EARTH*(frac(2/position) - frac(1/self.semi_major_axis)))
         return v
 
     # to calculate the optimal transfer window
