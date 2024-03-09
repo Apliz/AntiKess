@@ -18,9 +18,9 @@ class Orbit():
         return floor(semi_major_axis)
     
     def radius_at(self, position:str) -> int:
-        """Returns the orbital radius at a given position in `km`\n
-            Args: \n
-                `position` takes either 'apogee' or 'perigee'
+        """ Returns the orbital radius at a given position in `km`\n
+
+            -> `position` accepts either 'apogee' or 'perigee'
         """
         match position:
             case "apogee":
@@ -35,9 +35,8 @@ class Orbit():
         return e
 
     def velocity_at_position(self, ap_or_pe:str) ->int:
-        """returns velocity of satellite at a given position `Km s-1` \n
-                Args: \n
-                    `position` -> The orbital radius 'height' from which instantaneous velocity will be calculated
+        """ Returns velocity of satellite at a given position `Km s-1` \n
+            `position` -> The orbital radius 'height' from which instantaneous velocity will be calculated
         """
         v = sqrt(2*((GM / self.radius_at(ap_or_pe)) + self.epsilon()))
         return v
