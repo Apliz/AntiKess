@@ -12,7 +12,12 @@ Consider the trade-offs: Since you're optimizing two variables simultaneously (s
 
 Implement and test: Once you have a clear algorithmic approach, implement it in your preferred programming language and test it with different inputs to ensure it behaves as expected.
 
+Reference:
+
+1. The 
+
 Things to do
 1. replace JQuery celestrack request with python requests
 2. Rework entire database system. It doesn't need to be so bloated.
 3. Refactor Transfer.py so that it creates a new Orbit() object for the transfer orbit,
+4. Eventually refactor it into a client GUI
