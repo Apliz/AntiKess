@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  src: url(/static/font/Barlow/Barlow-Medium.ttf);
+}
+
+.container {
+  height: 6em;
+  margin: 0;
+  position: relative;
+}
+
+.container>img {
+  position: absolute;
+  margin: 0;
+  width: 39rem;
+  object-position: -16em -4em;
+  z-index: 20;
+}
+
+#pathfinder-title {
+  width: 20vw;
+  margin: 0;
+  z-index: 10;
+  position: relative;
+  padding-top: 1.8rem;
+  margin-left: 7rem;
+  font-family: "Barlow";
+}
+
+.banner {
+  width: 100%;
+  background-color: #4e7988;
+  height: 6em;
+  position: relative;
+  z-index: 10;
+}

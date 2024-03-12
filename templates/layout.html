@@ -5,13 +5,19 @@
   <meta charset="utf-8">
   <meta name="description" content={{description}}>
   <link rel="shortcut icon" href="/favicon.ico">
-  <script src="{{ url_for('static', filename='jquery-3.7.1.js') }}"></script>
   <script $SCRIPT_ROOT={{ request.script_root|tojson }};></script>
-  {%block css%}{%endblock%}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {%block css%}
+  {%endblock%}
 </head>
 
 <body>
+  <div class="rocketman"></div>
   {% block content%}{%endblock%}
+  <div class="footer">
+    <p class="attribution"><a href="https://www.freepik.com/free-vector/astronaut-flying-rocket-poster-design-element_29826228.htm#fromView=search&page=2&position=5&uuid=f1e12cf0-ba5e-4ad3-8e4f-a1d8bba6bdae">Image by Rochak Shukla on Freepik</a></p>
+  </div>
 </body>
+
 
 </html>

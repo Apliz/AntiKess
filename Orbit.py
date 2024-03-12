@@ -18,7 +18,7 @@ class Orbit():
         return floor(semi_major_axis)
     
     def radius_at(self, position:str) -> int:
-        """ Returns the orbital radius at a given position in `km`\n
+        """ Returns the orbital radius at a given position in `km`\n`
 
             -> `position` accepts either 'apogee' or 'perigee'
         """

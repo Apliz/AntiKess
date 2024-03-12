@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='index_styles.css')}}" rel="stylesheet">
+<link href="{{ url_for('static', filename='pathfinder.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <img src="/static/rocketman.svg">
+  <div class="banner">
+    <h1 class="title" id="pathfinder-title">PATHFINDER</h1>
+  </div>
+  <p>Orbital data is ready for pathfinder start</p>
+</div>
+
+{% endblock %}
