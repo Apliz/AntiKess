@@ -4,6 +4,8 @@ from math import floor
 from fractions import Fraction as frac
 from constants import GM
 
+# Needs a refactor to make full use of the spacetrack.org data
+
 class Orbit():
     """Instance of an orbit around Earth"""
     def __init__(self, mean_motion, eccentricity):

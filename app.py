@@ -11,8 +11,8 @@ db.init_app(app)
 @app.route("/", methods=["POST","GET"])
 def home():
     if request.method == 'POST':
-        data = st.spacetrack()
-        db.insert_Data(data)
+        spacetrack = st.spacetrack()
+        db.orbitalbodies(spacetrack)
         return redirect(url_for("ready"))
     return render_template(
         'index.html', 
