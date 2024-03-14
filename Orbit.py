@@ -1,24 +1,18 @@
 """Orbit Class"""
 from math import pi, sqrt
-from math import floor
-from fractions import Fraction as frac
 from constants import GM
-
-# Needs a refactor to make full use of the spacetrack.org data
 
 class Orbit():
     """Instance of an orbit around Earth"""
-    def __init__(self, mean_motion, eccentricity):
+    def __init__(self, mean_motion, eccentricity, perigee, apogee, period, semi_major_axis):
+        # self.mean_motion currently unused
         self.mean_motion = mean_motion
         self.eccentricity = eccentricity
-        self.a = self.calculate_semi_major_axis()
+        self.perigee = perigee
+        self.apogee = apogee
+        self.period = period * 60
+        self.semi_major_axis = semi_major_axis
 
-    def calculate_semi_major_axis(self) -> int:
-        """Returns the semi major axis of the orbit in `km`"""
-        radians_per_second = self.mean_motion * ((2*pi)/86400)
-        semi_major_axis = GM**frac(1,3) / radians_per_second**frac(2,3)
-        return floor(semi_major_axis)
-    
     def radius_at(self, position:str) -> int:
         """ Returns the orbital radius at a given position in `km`\n`
 
@@ -26,14 +20,14 @@ class Orbit():
         """
         match position:
             case "apogee":
-                return self.a*(self.eccentricity + 1)
+                return self.semi_major_axis*(self.eccentricity + 1)
             case "perigee":
-                return self.a*(1 - self.eccentricity)
+                return self.semi_major_axis*(1 - self.eccentricity)
         raise NotImplementedError(position)
 
     def epsilon(self) -> float:
         """Returns the specific orbital energy for an elliptical orbit in `MJ kg-1`"""
-        e = -abs(GM) / (2 * self.a)
+        e = -abs(GM) / (2 * self.semi_major_axis)
         return e
 
     def velocity_at_position(self, ap_or_pe:str) ->int:
@@ -45,5 +39,20 @@ class Orbit():
 
     def orbital_period(self) -> float:
         """Returns the period of an orbit `s`"""
-        t = 2*pi*sqrt(pow(self.a, 3) / GM)
+        t = 2*pi*sqrt(pow(self.semi_major_axis, 3) / GM)
         return t
+
+    @staticmethod
+    def period(a):
+        t = 2*pi*sqrt(pow(a, 3) / GM)
+        return t
+
+    @staticmethod
+    def eccentricity(radius_ap, radius_pe):
+        e = 1 - (2 / ((radius_ap/radius_pe) + 1))
+        return round(e,7)
+
+    @staticmethod
+    def a(radius_ap, radius_pe):
+        a = (radius_ap + radius_pe) / 2
+        return a

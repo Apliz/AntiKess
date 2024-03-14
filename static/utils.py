@@ -16,8 +16,10 @@ def orbitalBodiesSQLInsert(characteristic, count, database):
                 eccentricity,
                 periodT,
                 apoapsis,
-                periapsis
+                periapsis,
+                semi_major_axis
             ) VALUES (
+                ?,
                 ?,
                 ?,
                 ?,
@@ -36,5 +38,6 @@ def orbitalBodiesSQLInsert(characteristic, count, database):
                 float(characteristic["ECCENTRICITY"]),
                 float(characteristic["PERIOD"]),
                 float(characteristic["APOAPSIS"]),
-                float(characteristic["PERIAPSIS"])
+                float(characteristic["PERIAPSIS"]),
+                float(characteristic["SEMIMAJOR_AXIS"])
             ))

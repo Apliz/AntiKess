@@ -9,7 +9,8 @@ CREATE TABLE orbitalBodies (
   eccentricity REAL NOT NULL,
   periodT REAL NOT NULL,
   apoapsis REAL NOT NULL,
-  periapsis REAL NOT NULL
+  periapsis REAL NOT NULL,
+  semi_major_axis REAL NOT NULL
   -- inclination REAL NOT NULL,
   -- ra_ascending_node REAL NOT NULL,
   -- arg_pericenter REAL NOT NULL,
