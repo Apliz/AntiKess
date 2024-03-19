@@ -24,16 +24,19 @@ class Transfer(Orbit):
 
         vt1 = transfer_orbit.velocity_at_position("apogee")
         vt2 = transfer_orbit.velocity_at_position("perigee")
-    
+
+        # negative values = velocity decreasing (altitude decreasing)
+        # positive values = velocity increasing (altitude increasing)
         delta_v1 = vt1 - v1
         delta_v2 = vt2 - v2
 
-        total_delta_v = delta_v1 + delta_v2
-        return total_delta_v
+        total_delta_v = abs(delta_v1) + abs(delta_v2)
+        return f'total delta v for transfer is: {total_delta_v} km s-1'
     
     @staticmethod
-    def orbit(perigee,apogee):
-        eccentricity = Orbit.eccentricity(apogee, perigee)
-        semi_major_axis = Orbit.a(apogee, perigee)
-        period = Orbit.period(semi_major_axis)
-        return Orbit(0,eccentricity,perigee,apogee,period,semi_major_axis)
+    def orbit(pe,ap):
+        e = Orbit.eccentricity(ap, pe)
+        a = Orbit.a(ap, pe)
+        P = Orbit.period(a)
+        n = Orbit.mean_motion(a)
+        return Orbit(n,e,pe,ap,P,a)

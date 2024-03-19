@@ -3,7 +3,14 @@ from math import pi, sqrt
 from constants import GM
 
 class Orbit():
-    """Instance of an orbit around Earth"""
+    """Instance of an orbit around Earth \n
+    `mean_motion` -> revolutions/day (currently unused)\n
+    `eccentricity` -> abs value between 0 - 1 \n
+    `perigee` -> orbital altitude in `km` \n
+    `apogee` -> orbital altitude in `km` \n
+    `semi_major_axis` -> distance in `km` \n
+    
+    """
     def __init__(self, mean_motion, eccentricity, perigee, apogee, period, semi_major_axis):
         # self.mean_motion currently unused
         self.mean_motion = mean_motion
@@ -39,12 +46,12 @@ class Orbit():
 
     def orbital_period(self) -> float:
         """Returns the period of an orbit `s`"""
-        t = 2*pi*sqrt(pow(self.semi_major_axis, 3) / GM)
+        t = 2*pi*sqrt(self.semi_major_axis**3 / GM)
         return t
 
     @staticmethod
     def period(a):
-        t = 2*pi*sqrt(pow(a, 3) / GM)
+        t = 2*pi*sqrt(a**3 / GM)
         return t
 
     @staticmethod
@@ -56,3 +63,8 @@ class Orbit():
     def a(radius_ap, radius_pe):
         a = (radius_ap + radius_pe) / 2
         return a
+    
+    @staticmethod
+    def mean_motion(a):
+        n = 86400 * sqrt(GM / (4*pi**2*a**3))
+        return n
