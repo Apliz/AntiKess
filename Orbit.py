@@ -1,6 +1,6 @@
 """Orbit Class"""
 from math import pi, sqrt
-from constants import GM
+from constants import GM, SECONDS_IN_DAY
 
 class Orbit():
     """Instance of an orbit around Earth \n
@@ -11,13 +11,14 @@ class Orbit():
     `semi_major_axis` -> distance in `km` \n
     
     """
-    def __init__(self, mean_motion, eccentricity, perigee, apogee, period, semi_major_axis):
-        # self.mean_motion currently unused
+    def __init__(self, mean_motion, eccentricity, apogee, perigee, period, semi_major_axis):
+        # Not many of these are currently in use. Refactor.
         self.mean_motion = mean_motion
         self.eccentricity = eccentricity
+        self.apogee = apogee
         self.perigee = perigee
         self.apogee = apogee
-        self.period = period * 60
+        self.period = period
         self.semi_major_axis = semi_major_axis
 
     def radius_at(self, position:str) -> int:

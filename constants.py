@@ -7,6 +7,8 @@ R_EARTH = 6378
 # Standard Gravitational Parameter       (km3 s-2)
 GM = 398600.435507
 
+SECONDS_IN_DAY = 86400
+
 RATIO_HOHMANN = 11.94
 RATIO_BIELLIPTIC = 15.58
 # stub
