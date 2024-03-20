@@ -15,25 +15,49 @@ class Transfer(Orbit):
     
     def hohmann_transfer(self):
         """Returns total deltaV for a hohmann transfer manoeuvre in `km s-1`"""
+
         v1 = self.departure_orbit.velocity_at_position("apogee")
         v2 = self.arrival_orbit.velocity_at_position("perigee")
-  
+        
+        transfer_ap = None
+        transfer_pe = None
+
+        transfer_start_point_radius = self.departure_orbit.radius_at("apogee")
+        transfer_end_point_radius = self.arrival_orbit.radius_at("perigee")
+    
+        if transfer_end_point_radius > transfer_start_point_radius:
+            transfer_ap, transfer_pe = Transfer.switch_apsis(transfer_start_point_radius, transfer_end_point_radius)
+
         self.transfer_orbit = Transfer.orbit(
-            self.departure_orbit.radius_at("apogee") ,
-            self.arrival_orbit.radius_at("perigee")
+            transfer_ap,
+            transfer_pe
         )
 
-        vt1 = self.transfer_orbit.velocity_at_position("apogee")
-        vt2 = self.transfer_orbit.velocity_at_position("perigee")
+        if self.transfer_orbit.radius_at("apogee") == transfer_start_point_radius:
+            vt1 = self.transfer_orbit.velocity_at_position("apogee")
+            vt2 = self.transfer_orbit.velocity_at_position("perigee")
+        if self.transfer_orbit.radius_at("apogee") != transfer_start_point_radius:
+            vt1 = self.transfer_orbit.velocity_at_position("perigee")
+            vt2 = self.transfer_orbit.velocity_at_position("apogee")
 
-        # negative values = velocity decreasing (altitude decreasing)
-        # positive values = velocity increasing (altitude increasing)
         delta_v1 = vt1 - v1
         delta_v2 = vt2 - v2
 
         total_delta_v = abs(delta_v1) + abs(delta_v2)
         return f'total delta v for transfer is: {total_delta_v} km s-1'
 
+    @staticmethod
+    def switch_apsis(ap_in,pe_in):
+        ap = pe_in
+        pe = ap_in
+        return ap, pe
+    
+    @staticmethod
+    def apsis(r1, r2):
+        ap = r2
+        pe = r1
+        return ap, pe
+    
     @staticmethod
     def orbit(ap,pe):
         e = Orbit.eccentricity(ap, pe)
