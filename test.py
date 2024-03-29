@@ -1,8 +1,20 @@
 from Orbit import Orbit
 from Transfer import Transfer
 
-i = Orbit(16.31106792, 0.0013117, 180.954, 198.184, 88.284, 6567.704)
-f = Orbit(14.45833459, 0.0010391, 731.896, 746.687, 99.597, 7117.427)
-transfer = Transfer(i,f)
-print(transfer.hohmann_transfer())
-print(transfer.transfer_orbit.eccentricity)
+print("transfer 1")
+print("############")
+
+i1 = Orbit(0.0013117, 88.284, 6567.704)
+f1 = Orbit(0.0010391, 99.597, 7117.427)
+transfer1 = Transfer(i1,f1)
+print(transfer1.hohmann_transfer())
+print(f'eccentricity of transfer orbit : {transfer1.transfer_orbit.eccentricity}')
+
+print("transfer 2")
+print("############")
+
+i2 = Orbit(0.0010391, 99.597, 7117.427)
+f2 = Orbit(0.0013117, 88.284, 6567.704)
+transfer2 = Transfer(i2,f2)
+print(transfer2.hohmann_transfer())
+print(f'eccentricity of transfer orbit : {transfer2.transfer_orbit.eccentricity}')
