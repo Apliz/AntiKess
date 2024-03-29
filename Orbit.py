@@ -1,23 +1,16 @@
 """Orbit Class"""
 from math import pi, sqrt
-from constants import GM, SECONDS_IN_DAY
+from constants import GM
 
 class Orbit():
     """Instance of an orbit around Earth \n
-    `mean_motion` -> revolutions/day (currently unused)\n
     `eccentricity` -> abs value between 0 - 1 \n
-    `perigee` -> orbital altitude in `km` \n
-    `apogee` -> orbital altitude in `km` \n
+    `period` -> orbital period in `s`
     `semi_major_axis` -> distance in `km` \n
     
     """
-    def __init__(self, mean_motion, eccentricity, apogee, perigee, period, semi_major_axis):
-        # Not many of these are currently in use. Refactor.
-        self.mean_motion = mean_motion
+    def __init__(self, eccentricity, period, semi_major_axis):
         self.eccentricity = eccentricity
-        self.apogee = apogee
-        self.perigee = perigee
-        self.apogee = apogee
         self.period = period
         self.semi_major_axis = semi_major_axis
 
@@ -28,9 +21,11 @@ class Orbit():
         """
         match position:
             case "apogee":
-                return self.semi_major_axis*(self.eccentricity + 1)
+                r = self.semi_major_axis*(self.eccentricity + 1)
+                return r
             case "perigee":
-                return self.semi_major_axis*(1 - self.eccentricity)
+                r = self.semi_major_axis*(1 - self.eccentricity)
+                return r
         raise NotImplementedError(position)
 
     def epsilon(self) -> float:
@@ -65,7 +60,3 @@ class Orbit():
         a = (radius_ap + radius_pe) / 2
         return a
     
-    @staticmethod
-    def mean_motion(a):
-        n = 86400 * sqrt(GM / (4*pi**2*a**3))
-        return n
