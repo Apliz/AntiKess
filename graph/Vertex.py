@@ -7,10 +7,6 @@ class Vertex(Edge):
 
     def add_edge(self, end_vertex, weight):
         "Adds an edge to the vertex"
-        print("do we get to the add_edge method?")
-        print(Edge(self, end_vertex, weight).start)
-        print(Edge(self, end_vertex, weight).end)
-        print(Edge(self, end_vertex, weight).weight)
         self.edges.append(Edge(self, end_vertex, weight))
 
     def remove_edge(self,end_vertex):
@@ -25,17 +21,16 @@ class Vertex(Edge):
         "Method docstring to be composed"
         return self.edges
     
-    # def debug_print(self):
-    #     "Method docstring to be composed"
-    #     message = " ".join(f'{self.edges},')
-    #     print(f'vertex name: {self} -> debug print')
-    #     print("#############")
+    def debug_print(self):
+        "Method docstring to be composed"
+        message = " ".join(f'{self.edges},')
+        print(f'vertex name: {self.data} -> debug print')
 
-    #     for edge in self.edges:
-    #         print(f'{edge} \n')
+        for edge in self.edges:
+            print(f'{edge.get_start().get_data()} -> {edge.get_end().get_data()}')
 
-    #     print("END OF VERTEX \n")
-    #     print("#############")
+        print("END OF VERTEX \n")
+        print("________________")
             
 
 

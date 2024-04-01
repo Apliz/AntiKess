@@ -1,6 +1,10 @@
 from Vertex import Vertex
 from Edge import Edge
 
+# At the moment the graph breaks when trying to 
+# add an edge to a given vertex. It believes that the vertex object is a list
+# and needs some help
+
 class Graph(Vertex):
     def __init__(self, vertices:list):
         self.vertices = vertices
@@ -26,14 +30,15 @@ class Graph(Vertex):
         vertex2.remove_edge(vertex1)
     
 
-def main():
+def test_graph():
     my_graph = Graph(list())
-    my_graph.add_vertex(Vertex("vertex one"))
-    my_graph.add_vertex(Vertex("vertex two"))
-    my_graph.add_vertex(Vertex("vertex three"))
-    my_graph.add_edge(my_graph.vertices[0],[my_graph.vertices[1]], 1)
-    my_graph.add_edge(my_graph.vertices[0],[my_graph.vertices[2]], 2)
-    my_graph.add_edge(my_graph.vertices[1],[my_graph.vertices[2]], 3)
-    my_graph.debug_print()
+    my_graph.add_vertex("vertex one")
+    my_graph.add_vertex("vertex two")
+    my_graph.add_vertex("vertex three")
+    my_graph.add_edge(my_graph.vertices[0],my_graph.vertices[1], 1)
+    my_graph.add_edge(my_graph.vertices[0],my_graph.vertices[2], 2)
+    my_graph.add_edge(my_graph.vertices[1],my_graph.vertices[2], 3)
+    for i in my_graph.vertices:
+        i.debug_print()
 
-main()
+test_graph()
