@@ -7,7 +7,7 @@ def format_data(data) :
 
 def orbitalBodiesSQLInsert(characteristic, count, database):
   database.execute("""
-            INSERT INTO orbitalBodies(
+            INSERT OR IGNORE INTO orbitalBodies(
                 id,
                 objectname,
                 objectid,
@@ -17,8 +17,16 @@ def orbitalBodiesSQLInsert(characteristic, count, database):
                 periodT,
                 apoapsis,
                 periapsis,
+                inclination,
+                mean_anomaly,
+                arg_of_pericenter,
+                ra_of_asc_node,
                 semi_major_axis
             ) VALUES (
+                ?,
+                ?,
+                ?,
+                ?,
                 ?,
                 ?,
                 ?,
@@ -39,5 +47,9 @@ def orbitalBodiesSQLInsert(characteristic, count, database):
                 float(characteristic["PERIOD"]),
                 float(characteristic["APOAPSIS"]),
                 float(characteristic["PERIAPSIS"]),
+                float(characteristic["INCLINATION"]),
+                float(characteristic["MEAN_ANOMALY"]),
+                float(characteristic["ARG_OF_PERICENTER"]),
+                float(characteristic["RA_OF_ASC_NODE"]),
                 float(characteristic["SEMIMAJOR_AXIS"])
             ))
