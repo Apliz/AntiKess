@@ -1,5 +1,5 @@
 """Orbit Class"""
-from math import pi, sqrt
+from math import pi, sqrt, sin, cos, acos
 from constants import GM
 
 class Orbit():
@@ -9,10 +9,14 @@ class Orbit():
     `semi_major_axis` -> distance in `km` \n
     
     """
-    def __init__(self, eccentricity, period, semi_major_axis):
+    def __init__(self, eccentricity, period, semi_major_axis, mean_anomaly, inclination, mean_motion, arg_of_pericenter):
         self.eccentricity = eccentricity
         self.period = period
         self.semi_major_axis = semi_major_axis
+        self.mean_anomaly = mean_anomaly
+        self.inclination = inclination
+        self.mean_motion = mean_motion
+        self.arg_of_pericenter = arg_of_pericenter
 
     def radius_at(self, position:str) -> int:
         """ Returns the orbital radius at a given position in `km`\n`
@@ -44,6 +48,23 @@ class Orbit():
         """Returns the period of an orbit `s`"""
         t = 2*pi*sqrt(self.semi_major_axis**3 / GM)
         return t
+
+    def true_anomaly(self):
+        """calculates true_anomaly of an orbit in"""
+
+        i = self.mean_anomaly * (pi/180)
+        i_next = 1
+
+        while ((i_next - i)/i_next) > 0.01:
+            i_next = i * (self.eccentricity * sin(i))
+            i = i_next
+
+        true_anomaly = acos( (cos(i_next) - self.eccentricity) / 1 - (self.eccentricity * cos(i_next)  ) )
+
+        return true_anomaly
+        # https://blog.hardinglabs.com/tle-to-kep.html
+
+
 
     @staticmethod
     def period(a):
